@@ -21,7 +21,6 @@ public class UserController {
     }
 
     @GetMapping
-    @PreAuthorize("permitAll()")
     public ResponseEntity<Result<List<User>>> getAllUsers() {
         List<User> users = userService.getAllUsers();
 
@@ -29,7 +28,6 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("permitAll()")
     public ResponseEntity<Result<User>> getUserById(@PathVariable Long id) {
         Optional<User> userOptional = userService.getUserById(id);
         return userOptional.map(user -> ResponseEntity.ok(Result.success(user))).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -37,14 +35,12 @@ public class UserController {
     }
 
     @PostMapping
-    @PreAuthorize("permitAll()")
     public ResponseEntity<Result<User>> createUser(@RequestBody User user) {
         User createdUser = userService.createUser(user);
         return ResponseEntity.ok(Result.success(createdUser));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("permitAll()")
     public ResponseEntity<Result<User>> updateUser(@PathVariable Long id, @RequestBody User user) {
         try {
             User updatedUser = userService.updateUser(id, user);
@@ -56,7 +52,6 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("permitAll()")
     public ResponseEntity<Result<Void>> deleteUser(@PathVariable Long id) {
         try {
             userService.deleteUser(id);

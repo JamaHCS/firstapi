@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class GlobalController {
 
     @GetMapping("/proof-of-life")
-    @PreAuthorize("permitAll()")
     public Result<String> proofOfLife() {
         return Result.success("Proof of life");
     }
